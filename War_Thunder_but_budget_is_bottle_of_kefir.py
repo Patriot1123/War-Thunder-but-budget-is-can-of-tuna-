@@ -167,8 +167,6 @@ def tank_mode():
 
 
     def mainWindow():
-        music_tanki = pygame.mixer.Sound("tanki_music.mp3")
-        pygame.mixer.Sound.play(music_tanki)
         button1 = Button("В БОЙ", (350, 350), font=30)
         button2 = Button("Управление", (350, 430), font=30)
         button3 = Button("выйти", (350, 510), font=30)
@@ -180,11 +178,9 @@ def tank_mode():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                if button1.click(event, 'play'):
-                    music_tanki.stop()  # Останавливаем музыку при выходе
+                button1.click(event, 'play')
                 button2.click(event, 'controls')
-                if button3.click(event, 'quit'):
-                    music_tanki.stop()  # Останавливаем музыку при выходе
+                button3.click(event, 'quit')
             button1.show()
             button2.show()
             button3.show()
@@ -193,8 +189,8 @@ def tank_mode():
             pygame.display.update()
 
     def controlsWin():
-        music_tanki = pygame.mixer.Sound("tanki_music.mp3")
-        pygame.mixer.Sound.play(music_tanki)
+        #music_tanki = pygame.mixer.Sound("tanki_music.mp3") #В РАЗРАБОТКЕ
+        #pygame.mixer.Sound.play(music_tanki)
         button1 = Button("В БОЙ", (150, 500), font=30)
 
         button2 = Button("Главное меню", (350, 500), font=30)
@@ -215,11 +211,9 @@ def tank_mode():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                if button1.click(event, 'play'):
-                    music_tanki.stop()  # Останавливаем музыку при выходе
-                button2.click(event, 'main')
-                if button3.click(event, 'quit'):
-                    music_tanki.stop()  # Останавливаем музыку при выходе
+                button1.click(event, 'play')
+                button2.click(event, 'controls')
+                button3.click(event, 'quit')
             button1.show()
             button2.show()
             button3.show()
@@ -228,7 +222,6 @@ def tank_mode():
             pygame.display.update()
 
     def tank(x, y, turPos, tank):
-        # tank=1 if player's tank and -1 if computer's tank
         x = int(x)
         y = int(y)
         locs = [[27, 2], [26, 5], [25, 8], [23, 12], [20, 14], [18, 15], [15, 17], [13, 19], [11, 21]]
@@ -301,12 +294,10 @@ def tank_mode():
                     pygame.quit()
                     quit()
 
-            # print(startingShell[0],startingShell[1])
             pygame.draw.circle(screen, 'red', (startingShell[0], startingShell[1]), 5)
 
             startingShell[0] -= (12 - turPos) * 2
 
-            # y = x**2
             startingShell[1] += int(
                 (((startingShell[0] - xy[0]) * 0.015 / (gun_power / 50)) ** 2) - (turPos + turPos / (12 - turPos)))
 
@@ -478,7 +469,6 @@ def tank_mode():
         show_message("Нажмите С, чтобы продолжить или Й чтобы выйти", 'wheat', 25)
         pygame.display.update()
         while paused:
-            # gameDisplay.fill(black)
             for event in pygame.event.get():
 
                 if event.type == pygame.QUIT:
@@ -549,7 +539,7 @@ def tank_mode():
                         enemy_gun = tank(enemyTankX, enemyTankY, 8, -1)
                         fire_power += power_change
                         font = pygame.font.SysFont("Calibre", 30)
-                        text = font.render("Частота разброса: " + str(fire_power) + "%", True, 'black')
+                        text = font.render("Дальность выстрела: " + str(fire_power) + "%", True, 'black')
                         screen.blit(text, [width / 2, 0])
                         text = font.render("Высота: " + str(currentTurPos) + "м", True, 'black')
                         screen.blit(text, [width / 2, 20])
@@ -584,7 +574,7 @@ def tank_mode():
                                 enemy_gun = tank(enemyTankX, enemyTankY, 8, -1)
                                 fire_power += power_change
                                 font = pygame.font.SysFont("Calibre", 30)
-                                text = font.render("Частота разброса: " + str(fire_power) + "%", True, 'black')
+                                text = font.render("Дальность выстрела: " + str(fire_power) + "%", True, 'black')
                                 screen.blit(text, [width / 2, 0])
                                 text = font.render("Высота: " + str(currentTurPos) + "м", True, 'black')
                                 screen.blit(text, [width / 2, 20])
@@ -639,7 +629,7 @@ def tank_mode():
                 fire_power = 1
 
             font = pygame.font.SysFont("Calibre", 30)
-            text = font.render("Частота разброса " + str(fire_power) + "%", True, 'black')
+            text = font.render("Дальность выстрела " + str(fire_power) + "%", True, 'black')
             screen.blit(text, [width / 2, 0])
             text = font.render("Высота " + str(currentTurPos) + "м", True, 'black')
             screen.blit(text, [width / 2, 20])
